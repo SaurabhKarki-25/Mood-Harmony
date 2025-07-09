@@ -8,7 +8,10 @@ const Login = () => {
     // Update the document title
     document.title = 'Log In - MoodHarmony';
   }, []);
-  
+
+  const { error } = useAuthStore();
+
+{error && <p className="text-red-500 text-sm">{error}</p>}
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md">
