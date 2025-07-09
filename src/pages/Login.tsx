@@ -9,7 +9,6 @@ const Login = () => {
     document.title = 'Log In - MoodHarmony';
   }, []);
 
-  const { error } = useAuthStore();
 
 
   return (
@@ -35,7 +34,7 @@ const Login = () => {
               </Link>
               
             </p>
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+           
           </div>
         </div>
       </div>
