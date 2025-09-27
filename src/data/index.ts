@@ -126,7 +126,7 @@ export const songs: SongType[] = [
     duration: '3:32',
     year: 2018,
     moodIds: ['mood-dance', 'mood-party'],
-    coverUrl: 'https://images.unsplash.com/photo-1554043703-d5f9f935f09f',
+    coverUrl: 'Taki-Taki-Rumba.jpeg',
     audioUrl: 'Taki-Taki-Rumba.mp3', // Add audio URL here after download
   },
   {
@@ -137,7 +137,7 @@ export const songs: SongType[] = [
     duration: '3:23',
     year: 2020,
     moodIds: ['mood-dance', 'mood-happy'],
-    coverUrl: 'https://images.unsplash.com/photo-1600150180266-1f7c0cf17736',
+    coverUrl: 'levitating.jpg',
     audioUrl: 'Levitating (PenduJatt.Com.Se).mp3', // Add audio URL here after download
   },
  {
@@ -148,7 +148,7 @@ export const songs: SongType[] = [
     duration: '3:30',
     year: 2019,
     moodIds: ['mood-dance', 'mood-happy'],
-    coverUrl: 'https://images.unsplash.com/photo-1601220672392-1a3997d404d8',
+    coverUrl: 'dancemonkey.jpeg',
     audioUrl: 'Dance Monkey Remix 2020 (PenduJatt.Com.Se).mp3', // Add audio URL here after download
   },
   {
@@ -159,7 +159,7 @@ export const songs: SongType[] = [
     duration: '4:05',
     year: 2020,
     moodIds: ['mood-romantic', 'mood-soft'],
-    coverUrl: 'https://images.unsplash.com/photo-1598260212739-7f1a6e0a8a4a',
+    coverUrl: 'her.jpeg',
     audioUrl: 'Her_1.mp3', // Add audio URL here after download
   },
  

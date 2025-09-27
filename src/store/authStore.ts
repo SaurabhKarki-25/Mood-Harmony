@@ -13,15 +13,27 @@ type AuthState = {
   isLoading: boolean;
   error: string | null;
   login: (email: string, password: string) => Promise<void>;
-  signUp: (username: string, email: string, password: string) => Promise<void>;
+  signUp: (username: string, email: string, password: string, avatar?: string) => Promise<void>;
   logout: () => void;
   checkAuth: () => void;
   updateProfile: (userData: Partial<User>) => void;
 };
 
-const DEMO_CREDENTIALS = {
-  email: 'harmonyfan@mood.com',
-  password: 'playlist123'
+// Helper functions to manage stored credentials
+const getStoredCredentials = () => {
+  const stored = localStorage.getItem('mh_credentials');
+  return stored ? JSON.parse(stored) : {};
+};
+
+const storeCredentials = (email: string, password: string) => {
+  const credentials = getStoredCredentials();
+  credentials[email] = password;
+  localStorage.setItem('mh_credentials', JSON.stringify(credentials));
+};
+
+const validateCredentials = (email: string, password: string) => {
+  const credentials = getStoredCredentials();
+  return credentials[email] === password;
 };
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -35,31 +47,41 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     await new Promise(resolve => setTimeout(resolve, 800));
 
-    if (email === DEMO_CREDENTIALS.email && password === DEMO_CREDENTIALS.password) {
+    if (validateCredentials(email, password)) {
       const mockUser: User = {
-        id: 'mh001',
+        id: 'mh' + Date.now().toString().slice(-6),
         username: email.split('@')[0],
         email,
-        avatar: `https://source.boringavatars.com/beam/120/${email}?colors=9333ea,22d3ee,f43f5e,84cc16,eab308`
+        avatar: undefined
       };
 
       localStorage.setItem('mh_user', JSON.stringify(mockUser));
       set({ user: mockUser, isAuthenticated: true, isLoading: false });
     } else {
-      set({ error: '🎧 Incorrect credentials. Please try again.', isAuthenticated: false, isLoading: false });
+      set({ error: '🎧 Incorrect credentials. Please try again or sign up first.', isAuthenticated: false, isLoading: false });
     }
   },
 
-  signUp: async (username, email, password) => {
+  signUp: async (username, email, password, avatar) => {
     set({ isLoading: true, error: null });
 
     await new Promise(resolve => setTimeout(resolve, 1000));
 
+    // Check if email already exists
+    const credentials = getStoredCredentials();
+    if (credentials[email]) {
+      set({ error: '🎧 Email already exists. Please use a different email or login instead.', isLoading: false });
+      return;
+    }
+
+    // Store the new credentials
+    storeCredentials(email, password);
+
     const mockUser: User = {
-      id: Date.now().toString(),
+      id: 'mh' + Date.now().toString().slice(-6),
       username,
       email,
-      avatar: `https://source.boringavatars.com/beam/120/${username}?colors=9333ea,22d3ee,f43f5e,84cc16,eab308`
+      avatar: avatar || undefined
     };
 
     localStorage.setItem('mh_user', JSON.stringify(mockUser));
